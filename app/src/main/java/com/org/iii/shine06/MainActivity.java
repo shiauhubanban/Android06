@@ -8,6 +8,8 @@ import android.view.View;
 import android.util.Log;
 import android.widget.TextView;
 
+import static android.R.id.message;
+
 public class MainActivity extends AppCompatActivity {
     private TextView tv;
     private UIHandler uiHandler;
@@ -29,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             for (int i=0; i<10; i++){
-                Log.v("brad", "i = " + i);
-                uiHandler.sendEmptyMessage(i);
+                Message mesg = new Message();
+                Bundle data = new Bundle();
+                data.putInt("key1",i);
+                mesg.setData(data);
+                uiHandler.sendMessage(mesg);
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -44,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            tv.setText("i = " + msg.what);
+            Bundle data = msg.getData();
+            int i = data.getInt("key1");
+            tv.setText("i ="+i);
 
         }
     }
