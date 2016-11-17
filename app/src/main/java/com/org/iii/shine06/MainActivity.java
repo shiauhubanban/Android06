@@ -34,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
         timer.schedule(new MyTask(), 1000, 1000);
     }
 
+    @Override
+    public void finish() {
+        if (timer != null) {
+            timer.purge();
+            timer.cancel();
+            timer = null;
+        }
+        super.finish();
+    }
+
     private class MyTask extends TimerTask {
         int i;
         @Override
