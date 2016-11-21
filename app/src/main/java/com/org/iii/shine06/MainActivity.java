@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public void test2(View v){
         timer.schedule(new MyTask(), 1000, 1000);
     }
-
+ 
     @Override
     public void finish() {
         if (timer != null) {
